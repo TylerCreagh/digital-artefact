@@ -1,6 +1,8 @@
+package org.application;
+
 import java.util.Scanner;
 
-public class DigitalArtefact {
+public class App {
 
 // Methods
     public static void option1(String firstName, String lastName) {
