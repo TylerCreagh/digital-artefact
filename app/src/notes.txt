@@ -1,0 +1,5 @@
+can have a class ball that implements interface item.
+
+ball will then have different classes that inherit that such as metal ball
+
+class objective - classes like target, hoop, buttoninherit from it 
