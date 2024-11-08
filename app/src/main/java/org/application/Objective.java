@@ -1,12 +1,16 @@
 package org.application;
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.ArrayList;
 
 public abstract class Objective {
+    protected String outcome;
+    protected ArrayList<String> targetType = new ArrayList<String>();
+    protected ArrayList<String> hitOrMiss = new ArrayList<String>();
     public final double g = 9.81;
     Scanner input = new Scanner(System.in);
 
     public void getValues() {
-        Scanner input = new Scanner(System.in);
         System.out.println("How high is the target? (in metres)");
         float vObjDistance = input.nextFloat();
         System.out.println("How far is the target? (in metres)");
@@ -18,8 +22,6 @@ public abstract class Objective {
         System.out.println("What is the diameter of the projectile (in metres)");
         float projectileDiameter = input.nextFloat();
         calculate(vObjDistance, hObjDistance, angle, velocity, projectileDiameter);
-
-
     }
     protected void statsChoice(double maxHeight, double timeOfFlight) {
         String answer = input.nextLine().toUpperCase();
@@ -39,4 +41,14 @@ public abstract class Objective {
         System.out.println("The projectile travelled for " + timeOfFlight + " seconds! ");
     }
     protected abstract void calculate(float vObjDistance, float hObjDistance, float angle, float velocity, float projectileDiameter); 
+    protected void addToTargetType(String type) {
+        if (targetType.size() < 5 ) {
+            targetType.add(type);
+        } else {
+            targetType.remove(0);
+            targetType.add(type);
+        }
+    }
+    public abstract String getTargetType();
+    public abstract String getOutcome();
 }

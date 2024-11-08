@@ -1,10 +1,14 @@
 package org.application;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
+    public static ArrayList<String> targetType = new ArrayList<String>();
+    public static ArrayList<String> hitOrMiss = new ArrayList<String>();
+    public static ArrayList<Double> verticalDistance = new ArrayList<Double>();
+    public static  Scanner input = new Scanner(System.in);
     public static void main(String[] args) {
         boolean isValid = true;
-        Scanner input = new Scanner(System.in);
             System.out.println("        _____");
             System.out.println("    ,-:` \\;',`'-,");
             System.out.println(" .'-;_,;  ':-;_,'.");
@@ -47,16 +51,23 @@ public class App {
         System.out.println("What type of objective would you like to have? (Hoop/Target/Button)");
         String classType = input.nextLine().toUpperCase();
         if (classType.equals("HOOP")) {
-            Hoop goal = new Hoop();
-            goal.getValues();
+            Hoop hoop = new Hoop();
+            hoop.getValues();
+            addToHitOrMiss(hoop.getOutcome());
+            addToTargetType(hoop.getTargetType());
+            statsOptions();
             isValid = true;
         } else if (classType.equals("TARGET")) {
-            Target goal = new Target();
-            goal.getValues();
+            Target target = new Target();
+            target.getValues();
+            addToHitOrMiss(target.getOutcome());
+            addToTargetType(target.getTargetType());
+            statsOptions();
             isValid = true;
         } else if (classType.equals("BUTTON")) {
-            Button goal = new Button();
-            goal.getValues();
+            Button button = new Button();
+            button.getValues();
+
             isValid = true;
         } else {
             System.out.println("Error on input, please try again: ");
@@ -84,4 +95,68 @@ public class App {
         } 
         while(!isValid);
     } 
+    private static void statsOptions() {
+        boolean isValid;
+        System.out.println("Would you like to see your previous attempts (upto 5)?");
+        do {
+        String choice = input.nextLine().toUpperCase();
+        switch (choice) {
+            case "YEAH":
+            case "YES":
+            case "Y":
+            isValid = true;
+            displayPreviousStats();
+            break;
+            case "NO":
+            case "N":
+            case "NAH":
+            isValid = true;
+            break;
+            default:
+            System.out.println("Error on input, please try again!");
+            isValid = false;
+            }
+        } while(!isValid);
+    }
+    protected static void addToHitOrMiss(String type) {
+        if (hitOrMiss.size() < 5) { 
+            hitOrMiss.add(type);
+        } else {
+            hitOrMiss.remove(0);
+            hitOrMiss.add(type);
+        }
+    }
+    protected static void addToTargetType(String type) {
+        if (targetType.size() < 5) {
+            targetType.add(type);
+        } else {
+            targetType.remove(0);
+            targetType.add(type);
+        }
+    }
+    protected static void displayPreviousStats() {
+        System.out.println("");
+        for (String objective : targetType) {
+            System.out.print(objective + " ");
+        }
+        System.out.println("");
+        for (String status : hitOrMiss) {
+            System.out.print(status + " ");
+        }
+        System.out.println("");
+    }
+    // Getters and Setters
+    // -------------------------------------------------------------------------------
+    public ArrayList<String> getTargetType() {
+        return targetType;
+    }
+    public void setTargetType(ArrayList<String> targetType) {
+        this.targetType = targetType;
+    }
+    public ArrayList<String> getHitOrMiss() {
+        return hitOrMiss;
+    }
+    public void setHitOrMiss(ArrayList<String> hitOrMiss) {
+        this.hitOrMiss = hitOrMiss;
+    }
 }

@@ -22,6 +22,10 @@ public class Button extends Objective{
             System.out.println("Missed");
         }
     }
+    @Override
+    public String getTargetType() {
+        return "Button";
+    }
     // @Override
     // protected boolean isValidForObjective() {
         

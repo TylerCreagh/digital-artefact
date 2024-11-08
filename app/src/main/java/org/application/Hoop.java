@@ -1,5 +1,6 @@
 package org.application;
-import java.util.Scanner;
+
+import org.checkerframework.checker.units.qual.s;
 
 public class Hoop extends Objective {
     private double timeOfFlight;
@@ -41,23 +42,40 @@ public class Hoop extends Objective {
 
             if (hDisplacementAtVtimeAtDisplacement1 < (rightHandOfHoop - projectileDiameter/2) && hDisplacementAtVtimeAtDisplacement1 > (leftHandOfHoop + (projectileDiameter/2)) || hDisplacementAtVtimeAtDisplacement2 < (rightHandOfHoop - projectileDiameter/2) && hDisplacementAtVtimeAtDisplacement2 > (leftHandOfHoop + (projectileDiameter/2))) {
                 System.out.println("The projectile went through!");
-                
+                setOutcome(true);
             } else {
                 System.out.println("The projectile did not go through the hoop!");
+                setOutcome(false);
             }
+            addToTargetType("Hoop");
+            System.out.println("Would you like to know the stats of the attempt?");
+            input.nextLine();
+            statsChoice(maxHeight, timeOfFlight);
         } 
         else {
             System.out.println("The projectile will not fit.");
         }
-        System.out.println("Would you like to know the stats of the attempt?");
-        input.nextLine();
-        statsChoice(maxHeight, timeOfFlight);
-        }
+    }
     private boolean canFit(Float projectileDiameter) {
         if (projectileDiameter > hoopDiameter || projectileDiameter == hoopDiameter) {
             return false;
         } else {
             return true;
+        }
+    }
+    @Override
+    public String getTargetType() {
+        return "Hoop";
+    }
+    @Override
+    public String getOutcome() {
+        return outcome;
+    }
+    public void setOutcome(boolean isSuccesful) {
+        if (isSuccesful) {
+            outcome = "Through";
+        } else {
+            outcome = "Not Through";
         }
     }
 }
